@@ -45,6 +45,55 @@ public class LinkedListUtilsTest {
         assertThat(reverse, is(linkedList("E", "D", "C", "B", "A")));
     }
 
+
+    @Test
+    public void shouldRemoveFromDuplicatesFromEmptyList() {
+        Node<String> node = null;
+        LinkedListUtils.deDupe(node);
+        assertNull(node);
+    }
+
+    @Test
+    public void shouldRemoveDuplicatesFromSingleElementList() {
+        Node<String> node = Node.of("A");
+        LinkedListUtils.deDupe(node);
+        assertThat(node, is(linkedList("A")));
+    }
+
+    @Test
+    public void shouldRemoveDuplicatesFromNonDuplicateList() {
+        Node<String> list = createLinedList("A", "B", "C");
+        LinkedListUtils.deDupe(list);
+        assertThat(list, is(linkedList("A", "B", "C")));
+    }
+
+    @Test
+    public void shouldRemoveDuplicateFromTwoDupNodeList() {
+        Node<String> list = createLinedList("A", "A");
+
+        LinkedListUtils.deDupe(list);
+
+        assertThat(list, is(linkedList("A")));
+    }
+
+    @Test
+    public void shouldRemoveDuplicateFromList() {
+        Node<String> list = createLinedList("A", "B", "A", "C", "A", "A", "D", "E", "F", "D", "C", "C");
+
+        LinkedListUtils.deDupe(list);
+
+        assertThat(list, is(linkedList("A", "B", "C", "D", "E", "F")));
+    }
+
+    @Test
+    public void shouldRemoveDuplicateFromListOfSameElement() {
+        Node<String> list = createLinedList("A", "A", "A", "A", "A");
+
+        LinkedListUtils.deDupe(list);
+
+        assertThat(list, is(linkedList("A")));
+    }
+
     private <T> Node<T> createLinedList(final T ...values) {
         Node<T> lastPointer = null;
         Node<T> node = null;
