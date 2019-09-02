@@ -3,6 +3,7 @@ package in.solve.problems.basic.linkedlist;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -92,6 +93,214 @@ public class LinkedListUtilsTest {
         LinkedListUtils.deDupe(list);
 
         assertThat(list, is(linkedList("A")));
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfEmptyLinkedLists() {
+        Node<String> list1 = null;
+        Node<String> list2 = null;
+
+        String intersectionPoint = LinkedListUtils.intersectionPoint(list1, list2);
+
+        assertNull(intersectionPoint);
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfNonIntersectingLists() {
+        Node<String> list1 = createLinedList("A", "B", "C");
+        Node<String> list2 = createLinedList("P", "B", "C");
+
+        String intersectionPoint = LinkedListUtils.intersectionPoint(list1, list2);
+
+        assertNull(intersectionPoint);
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfSameListsAsFirstNode() {
+        final Node<String> list = createLinedList("A");
+
+        final String intersectionPoint = LinkedListUtils.intersectionPoint(list, list);
+
+        assertThat(intersectionPoint, is("A"));
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfTwoSmallLists() {
+        final Node<String> intersectionList = createLinedList("P", "Q");
+        final Node<String> list1 = createLinedList("M", "N", "O");
+        final Node<String> list2 = createLinedList("A", "B");
+        append(list1, intersectionList);
+        append(list2, intersectionList);
+
+        final String intersectionPoint = LinkedListUtils.intersectionPoint(list1, list2);
+
+        assertThat(intersectionPoint, is(intersectionList.value()));
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfTwoListsSecondBeingLarger() {
+        final Node<String> intersectionList = createLinedList("P", "Q");
+        final Node<String> list1 = createLinedList("M", "N", "O");
+        final Node<String> list2 = createLinedList("A", "B", "C", "D");
+        append(list1, intersectionList);
+        append(list2, intersectionList);
+
+        final String intersectionPoint = LinkedListUtils.intersectionPoint(list1, list2);
+
+        assertThat(intersectionPoint, is(intersectionList.value()));
+    }
+
+    @Test
+    public void shouldFindIntersectionPointOfTwoListsOfSimilarSize() {
+        final Node<String> intersectionList = createLinedList("P", "Q");
+        final Node<String> list1 = createLinedList("M", "N", "O");
+        final Node<String> list2 = createLinedList("A", "B", "C");
+        append(list1, intersectionList);
+        append(list2, intersectionList);
+
+        final String intersectionPoint = LinkedListUtils.intersectionPoint(list1, list2);
+
+        assertThat(intersectionPoint, is(intersectionList.value()));
+    }
+
+    @Test
+    public void shouldFindNthLastElementForEmptyList() {
+        final Node<String> list = null;
+        String element = LinkedListUtils.lastNthElement(list, 1);
+
+        assertNull(element);
+    }
+
+    @Test
+    public void shouldFind1stLastElementForSingleList() {
+        final Node<String> list = createLinedList("A");
+        String element = LinkedListUtils.lastNthElement(list, 1);
+
+        assertThat(element, is("A"));
+    }
+
+    @Test
+    public void shouldFindNthLastElementForListOfSizeLesserThanN() {
+        final Node<String> list = createLinedList("A");
+        String element = LinkedListUtils.lastNthElement(list, 2);
+
+        assertNull(element);
+    }
+
+    @Test
+    public void shouldFind2ndLastElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        final String element = LinkedListUtils.lastNthElement(list, 2);
+
+        assertThat(element, is("B"));
+    }
+
+    @Test
+    public void shouldFind1ndLastElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        final String element = LinkedListUtils.lastNthElement(list, 1);
+
+        assertThat(element, is("C"));
+    }
+
+    @Test
+    public void shouldFind3rdLastElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        final String element = LinkedListUtils.lastNthElement(list, 3);
+
+        assertThat(element, is("A"));
+    }
+
+    @Test
+    public void shouldNotFind0thLastElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        final String element = LinkedListUtils.lastNthElement(list, 0);
+
+        assertNull(element);
+    }
+
+    @Test
+    public void shouldNotFind4thLastElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        final String element = LinkedListUtils.lastNthElement(list, 4);
+
+        assertNull(element);
+    }
+
+
+    @Test
+    public void shouldMergeEmptyLists() {
+        Node<Integer> list1 = null;
+        Node<Integer> list2 = null;
+
+        Node<Integer> merged = LinkedListUtils.merge(list1, list2);
+
+        assertNull(merged);
+    }
+
+
+    @Test
+    public void shouldMergeOneEmptyAndOtherNonEmptyList() {
+        final Node<Integer> list = createLinedList(1);
+
+        Node<Integer> merged = LinkedListUtils.merge(list, null);
+        assertThat(merged, is(linkedList(1)));
+
+        merged = LinkedListUtils.merge(null, list);
+        assertThat(merged, is(linkedList(1)));
+    }
+
+    @Test
+    public void shouldMergeTwoListsOfOneNode() {
+        final Node<Integer> list1 = createLinedList(2);
+        final Node<Integer> list2 = createLinedList(3);
+
+        final Node<Integer> merged = LinkedListUtils.merge(list1, list2);
+
+        assertThat(merged, is(linkedList(2, 3)));
+    }
+
+    @Test
+    public void shouldMergeTwoListsOfOneNodeInCorrectOrder() {
+        final Node<Integer> list1 = createLinedList(12);
+        final Node<Integer> list2 = createLinedList(3);
+
+        final Node<Integer> merged = LinkedListUtils.merge(list1, list2);
+
+        assertThat(merged, is(linkedList(3, 12)));
+    }
+
+    @Test
+    public void shouldMergeTwoLists() {
+        final Node<Integer> list1 = createLinedList(1, 2, 5, 7, 9, 12, 15);
+        final Node<Integer> list2 = createLinedList(3, 5, 7, 10);
+
+        final Node<Integer> merged = LinkedListUtils.merge(list1, list2);
+
+        assertThat(merged, is(linkedList(1, 2, 3, 5, 5, 7, 7, 9, 10, 12, 15)));
+    }
+
+    @Test
+    public void shouldMergeTwoListsSecondBeingLarger() {
+        final Node<Integer> list1 = createLinedList(1, 2, 5, 7, 9, 12, 15);
+        final Node<Integer> list2 = createLinedList(3, 5, 7, 10, 11, 12, 14, 16, 19);
+
+        final Node<Integer> merged = LinkedListUtils.merge(list1, list2);
+
+        assertThat(merged, is(linkedList(1, 2, 3, 5, 5, 7, 7, 9, 10, 11, 12, 12, 14, 15, 16, 19)));
+    }
+
+    private void append(final Node<String> list, final Node<String> tail) {
+        Node pointer = list;
+        while (pointer.next() != null) {
+            pointer = pointer.next();
+        }
+        pointer.setNext(tail);
     }
 
     private <T> Node<T> createLinedList(final T ...values) {

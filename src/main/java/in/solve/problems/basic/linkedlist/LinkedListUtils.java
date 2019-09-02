@@ -1,5 +1,6 @@
 package in.solve.problems.basic.linkedlist;
 
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class LinkedListUtils {
@@ -31,5 +32,137 @@ public class LinkedListUtils {
             pointer = pointer.next();
         }
 
+    }
+
+    public static <T> T intersectionPoint(final Node<T> list1, final Node<T> list2) {
+        if (list1 == null || list2 == null) {
+            return null;
+        }
+
+        int length1 = lengthOf(list1);
+        int length2 = lengthOf(list2);
+
+        if (length1 > length2) {
+            return intersectionPoint(length1 - length2, list1, list2);
+        }
+
+        return intersectionPoint(length2 - length1, list2, list1);
+    }
+
+    public static <T> T lastNthElement(final Node<T> list, final int n) {
+        if (list == null) {
+            return null;
+        }
+        Node<T> follower = list;
+        Node<T> leader = list;
+
+        for (int i = 0; i < n; i++) {
+            if (leader == null) {
+                return null;
+            }
+            leader = leader.next();
+        }
+
+        while (leader != null) {
+            leader = leader.next();
+            follower = follower.next();
+        }
+
+        return follower == null? null : follower.value();
+    }
+
+    public static <T> T intersectionPoint(final int diff, final Node<T> largerList, final Node<T> smallerList) {
+        Node<T> pointer = largerList;
+        for (int i = 0; i < diff; i++) {
+            pointer = pointer.next();
+        }
+
+        Node<T> anotherPointer = smallerList;
+        while (anotherPointer != null) {
+            if (anotherPointer == pointer) {
+                return pointer.value();
+            }
+
+            anotherPointer = anotherPointer.next();
+            pointer = pointer.next();
+        }
+
+        return null;
+    }
+
+    private static <T>int lengthOf(Node<T> node) {
+        int length = 0;
+        Node<T> pointer = node;
+
+        while (pointer != null) {
+            pointer = pointer.next();
+            length++;
+        }
+
+        return length;
+    }
+
+    public static <T extends Comparable> Node<T> merge(final Node<T> list1, final Node<T> list2) {
+        Node<T> merged = null;
+        Node<T> mergedLast = merged;
+
+        Node<T> pointer1 = list1;
+        Node<T> pointer2 = list2;
+
+        while (pointer1 != null && pointer2 != null) {
+            while (pointer1 != null && pointer2 != null && pointer1.value().compareTo(pointer2.value()) <= 0) {
+                Node<T> temp = Node.of(pointer1.value());
+                if (merged == null) {
+                    merged = temp;
+                }
+                if (mergedLast != null) {
+                    mergedLast.setNext(temp);
+                }
+                mergedLast = temp;
+                pointer1 = pointer1.next();
+            }
+
+            while (pointer2 != null && pointer1 != null && pointer2.value().compareTo(pointer1.value()) <= 0) {
+                Node<T> temp = Node.of(pointer2.value());
+                if (merged == null) {
+                    merged = temp;
+                }
+                if (mergedLast != null) {
+                    mergedLast.setNext(temp);
+                }
+                mergedLast = temp;
+                pointer2 = pointer2.next();
+            }
+        }
+
+        if (pointer1 == null) {
+            while (pointer2 != null) {
+                Node<T> temp = Node.of(pointer2.value());
+                if (merged == null) {
+                    merged = temp;
+                }
+                if (mergedLast != null) {
+                    mergedLast.setNext(temp);
+                }
+                mergedLast = temp;
+                pointer2 = pointer2.next();
+            }
+        }
+
+        if (pointer2 == null) {
+            while (pointer1 != null) {
+                Node<T> temp = Node.of(pointer1.value());
+                if (merged == null) {
+                    merged = temp;
+                }
+                if (mergedLast != null) {
+                    mergedLast.setNext(temp);
+                }
+                mergedLast = temp;
+                pointer1 = pointer1.next();
+            }
+        }
+
+        return merged;
     }
 }
