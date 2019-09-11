@@ -295,6 +295,111 @@ public class LinkedListUtilsTest {
         assertThat(merged, is(linkedList(1, 2, 3, 5, 5, 7, 7, 9, 10, 11, 12, 12, 14, 15, 16, 19)));
     }
 
+    @Test
+    public void shouldReverseEvenNodesAtEndForEmptyList() {
+        final Node<String> list = null;
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertNull(list);
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForSingleElementList() {
+        final Node<String> list = createLinedList("A");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A")));
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForTwoElementList() {
+        final Node<String> list = createLinedList("A", "B");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A", "B")));
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForThreeElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A", "C", "B")));
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForFourElementList() {
+        final Node<String> list = createLinedList("A", "B", "C", "D");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A", "C", "D", "B")));
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForFiveElementList() {
+        final Node<String> list = createLinedList("A", "B", "C", "D", "E");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A", "C", "E", "D", "B")));
+    }
+
+    @Test
+    public void shouldReverseEvenNodesAtEndForSixElementList() {
+        final Node<String> list = createLinedList("A", "B", "C", "D", "E", "F");
+
+        LinkedListUtils.reverseEvenNodesAtEnd(list);
+
+        assertThat(list, is(linkedList("A", "C", "E", "F", "D", "B")));
+    }
+
+    @Test
+    public void shouldReverseFirstElementsInEmptyList() {
+        final Node<String> list = null;
+        final Node<String> reverse = LinkedListUtils.reverse(list, 1);
+        assertNull(reverse);
+    }
+
+    @Test
+    public void shouldReverseFirst1ElementInNonEmptyList() {
+        final Node<String> list = createLinedList("A", "B");
+        final Node<String> reverse = LinkedListUtils.reverse(list, 1);
+        assertThat(reverse, is(linkedList("A", "B")));
+    }
+
+    @Test
+    public void shouldReverse2ElementIn3ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C");
+        final Node<String> reverse = LinkedListUtils.reverse(list, 2);
+        assertThat(reverse, is(linkedList("B", "A", "C")));
+    }
+
+    @Test
+    public void shouldReverse2ElementIn2ElementList() {
+        final Node<String> list = createLinedList("A", "B");
+        final Node<String> reverse = LinkedListUtils.reverse(list, 2);
+        assertThat(reverse, is(linkedList("B", "A")));
+    }
+
+    @Test
+    public void shouldNotReverse3ElementIn2ElementList() {
+        final Node<String> list = createLinedList("A", "B");
+        final Node<String> reverse = LinkedListUtils.reverse(list, 3);
+        assertThat(reverse, is(linkedList("A", "B")));
+    }
+    @Test
+    public void shouldNotReverse4ElementIn6ElementList() {
+        final Node<String> list = createLinedList("A", "B", "C", "D", "E", "F");
+        final Node<String> reverse = LinkedListUtils.reverse(list, 4);
+        assertThat(reverse, is(linkedList("D", "C" , "B", "A", "E", "F")));
+    }
+
+
     private void append(final Node<String> list, final Node<String> tail) {
         Node pointer = list;
         while (pointer.next() != null) {

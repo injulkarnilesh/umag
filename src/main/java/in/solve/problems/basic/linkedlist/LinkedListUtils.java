@@ -1,6 +1,5 @@
 package in.solve.problems.basic.linkedlist;
 
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class LinkedListUtils {
@@ -164,5 +163,63 @@ public class LinkedListUtils {
         }
 
         return merged;
+    }
+
+    public static <T> void reverseEvenNodesAtEnd(final Node<T> list) {
+        if (list == null) {
+            return;
+        }
+
+        Node<T> evenList = list.next();
+        Node<T> oddList = list;
+
+        Node<T> oddPointer = oddList;
+        Node<T> evenPointer = evenList;
+
+
+        while (evenPointer != null && oddPointer != null) {
+            oddPointer.setNext(evenPointer.next());
+            if (evenPointer.next() != null) {
+                evenPointer.setNext(evenPointer.next().next());
+            }
+            oddPointer = oddPointer.next();
+            evenPointer = evenPointer.next();
+        }
+
+
+        while (oddList.next() != null) {
+            oddList = oddList.next();
+        }
+
+        oddList.setNext(reverse(evenList));
+
+    }
+
+    public static <T> Node<T> reverse(final Node<T> list, final int numberOfElements) {
+        if (list == null || list.next() == null) {
+            return list;
+        }
+
+        if (numberOfElements > lengthOf(list)) {
+            return list;
+        }
+
+        Node<T> pointer = list.next();
+        Node<T> follower = list;
+        Node<T> beginning = list;
+
+        int i = 1;
+
+        while (pointer!= null && i < numberOfElements) {
+            Node<T> temp = pointer.next();
+            pointer.setNext(follower);
+            follower = pointer;
+            pointer = temp;
+            i++;
+        }
+
+        beginning.setNext(pointer);
+
+        return follower;
     }
 }
