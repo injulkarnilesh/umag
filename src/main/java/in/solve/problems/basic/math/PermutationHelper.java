@@ -1,10 +1,12 @@
 package in.solve.problems.basic.math;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PermutationHelper {
 
-    public static String findNthPermutation(final String str, final int n) {
+    public static String nthPermutation(final String str, final int n) {
         if (str == null) {
             return null;
         }
@@ -14,10 +16,10 @@ public class PermutationHelper {
         }
         final char[] strCharacters = str.toCharArray();
         Arrays.sort(strCharacters);
-        return findNthPermutation(strCharacters, n);
+        return nthPermutation(strCharacters, n);
     }
 
-    private static String findNthPermutation(final char[] characters, final int n) {
+    private static String nthPermutation(final char[] characters, final int n) {
         int length = characters.length;
         if (length == 0 || length == 1 || n == 0) {
             return new String(characters);
@@ -33,13 +35,41 @@ public class PermutationHelper {
             }
         }
 
-        return characters[d] + findNthPermutation(remainingChars, m + 1);
+        return characters[d] + nthPermutation(remainingChars, m + 1);
     }
 
-    private static int factorial(int n) {
-        if (n == 1) {
+    static int factorial(int n) {
+        if (n == 1 || n == 0) {
             return 1;
         }
         return n * factorial(n-1);
+    }
+
+    public static Set<String> permutations(final String str) {
+        final HashSet<String> permutations = new HashSet<>();
+        if (str == null || str.length() == 0) {
+            return permutations;
+        }
+
+        if (str.length() == 1) {
+            permutations.add(str);
+            return permutations;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            final char currentChar = str.charAt(i);
+            String remainingString = "";
+            if (i > 0) {
+                remainingString = remainingString + str.substring(0, i);
+            }
+            if (i != str.length() - 1) {
+                remainingString = remainingString + str.substring(i+1);
+            }
+
+            final Set<String> otherPermutations = permutations(remainingString);
+            otherPermutations.forEach(p -> permutations.add(currentChar + p));
+        }
+
+        return permutations;
     }
 }
