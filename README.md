@@ -1,2 +1,2 @@
 # umag
-Solving some problems
+Solving some programming problems.
