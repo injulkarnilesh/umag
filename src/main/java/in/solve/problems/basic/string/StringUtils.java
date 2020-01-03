@@ -3,6 +3,7 @@ package in.solve.problems.basic.string;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -62,5 +63,30 @@ public class StringUtils {
 
     private static boolean isEmpty(final String str) {
         return str == null || str.length() == 0;
+    }
+
+    public static boolean canSegment(final String string, final List<String> words) {
+        if (isEmpty(string)) {
+            return false;
+        }
+        TrieDictionary dictionary = TrieDictionary.createNew();
+        dictionary.add(words.toArray(new String[words.size()]));
+        return canSegment(string, dictionary);
+    }
+
+    private static boolean canSegment(final String string, final TrieDictionary dictionary) {
+        if (isEmpty(string)) {
+            return true;
+        }
+        boolean canSegment = false;
+        for (int i = 1; i <= string.length(); i++) {
+            final String prefix = string.substring(0, i);
+            final String remaining = string.substring(i);
+            canSegment = dictionary.has(prefix) && canSegment(remaining, dictionary);
+            if (canSegment) {
+                return true;
+            }
+        }
+        return canSegment;
     }
 }

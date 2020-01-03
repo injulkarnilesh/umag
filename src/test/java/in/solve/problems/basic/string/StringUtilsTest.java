@@ -2,9 +2,12 @@ package in.solve.problems.basic.string;
 
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class StringUtilsTest {
 
@@ -108,5 +111,60 @@ public class StringUtilsTest {
     public void shouldGetDuplicatesFromDuplicateCharacterStringForLongString() {
         final String result = StringUtils.orderedDuplicates("nileshlkptalpih");
         assertThat(result, is("ilhp"));
+    }
+
+    @Test
+    public void shouldCheckSegmentationOfNullString() {
+        assertFalse(StringUtils.canSegment(null, asList("i" , "am")));
+    }
+
+    @Test
+    public void shouldCheckSegmentationOnNoWords() {
+        assertFalse(StringUtils.canSegment("", asList()));
+    }
+
+    @Test
+    public void shouldCheckSegmentationOfEmptyString() {
+        assertFalse(StringUtils.canSegment("", asList("who")));
+    }
+
+    @Test
+    public void shouldSegmentSingleLetterString() {
+        assertTrue(StringUtils.canSegment("a", asList("a")));
+    }
+
+    @Test
+    public void shouldNotSegmentSingleLetterString() {
+        assertFalse(StringUtils.canSegment("a", asList("b")));
+    }
+
+    @Test
+    public void shouldSegmentTwoLetterString() {
+        assertTrue(StringUtils.canSegment("am", asList("a", "m")));
+    }
+
+    @Test
+    public void shouldSegmentMultiWordString() {
+        assertTrue(StringUtils.canSegment("iamironman", asList("iron", "i", "am", "man")));
+    }
+
+    @Test
+    public void shouldSegmentMultiWordStringWhenMoreWordsInInput() {
+        assertTrue(StringUtils.canSegment("canthis", asList("this", "be", "can", "me")));
+    }
+
+    @Test
+    public void shouldSegmentMultiWordStringForLongerString() {
+        assertTrue(StringUtils.canSegment("iamtheonewhoknocks", asList("am", "i", "the", "who", "one", "knocks", "who")));
+    }
+
+    @Test
+    public void shouldSegmentMultiWordStringWithDuplicates() {
+        assertTrue(StringUtils.canSegment("tobeornottobe", asList("to", "be", "not", "or", "who")));
+    }
+
+    @Test
+    public void shouldNotSegmentMultiWordString() {
+        assertFalse(StringUtils.canSegment("winteriscoming", asList("winter", "coming", "was")));
     }
 }
