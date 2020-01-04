@@ -2,7 +2,12 @@ package in.solve.problems.basic.string;
 
 import org.junit.Test;
 
+import java.util.Set;
+
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -166,5 +171,73 @@ public class StringUtilsTest {
     @Test
     public void shouldNotSegmentMultiWordString() {
         assertFalse(StringUtils.canSegment("winteriscoming", asList("winter", "coming", "was")));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringForEmptyString() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("");
+        assertThat(palindromes, is(empty()));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringForNullString() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings(null);
+        assertThat(palindromes, is(empty()));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringForSingleCharacter() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("a");
+        assertThat(palindromes, hasSize(1));
+        assertThat(palindromes, hasItems("a"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForTwoDiffCharacters() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("ab");
+        assertThat(palindromes, hasSize(2));
+        assertThat(palindromes, hasItems("a", "b"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForTwoSameCharacters() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("aa");
+        assertThat(palindromes, hasSize(2));
+        assertThat(palindromes, hasItems("a", "aa"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForDistinctCharacters() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("abcd");
+        assertThat(palindromes, hasSize(4));
+        assertThat(palindromes, hasItems("a", "b", "c", "d"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForDuplicateCharacters() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("aabb");
+        assertThat(palindromes, hasSize(4));
+        assertThat(palindromes, hasItems("a", "b", "aa", "bb"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForLongerString() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("abbadttd");
+        assertThat(palindromes, hasSize(8));
+        assertThat(palindromes, hasItems("a", "b", "d", "t", "bb", "abba", "tt", "dttd"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForLongerStringWithOddNumberPalindromes() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("abadtvtd");
+        assertThat(palindromes, hasSize(8));
+        assertThat(palindromes, hasItems("a", "b", "d", "t", "v", "aba", "tvt", "dtvtd"));
+    }
+
+    @Test
+    public void shouldFindPalindromeSubstringsForLongerStringWithEvenAndOddPalindromes() {
+        final Set<String> palindromes = StringUtils.palindromeSubstrings("nilinyuuy");
+        assertThat(palindromes, hasSize(9));
+        assertThat(palindromes, hasItems("n", "i", "l", "u", "y", "ili", "nilin", "uu", "yuuy"));
     }
 }

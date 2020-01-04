@@ -2,9 +2,11 @@ package in.solve.problems.basic.string;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StringUtils {
@@ -88,5 +90,48 @@ public class StringUtils {
             }
         }
         return canSegment;
+    }
+
+    public static Set<String> palindromeSubstrings(final String str) {
+        final HashSet<String> palindromes = new HashSet<>();
+        if (isEmpty(str)) {
+            return palindromes;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char character = str.charAt(i);
+            palindromes.add(Character.toString(character));
+
+            int left = i;
+            int right = i + 1;
+            final String evenPalindromeCurrent = "";
+            collectPalindromesByMovingEitherSide(str, left, right, evenPalindromeCurrent, palindromes);
+
+            left = i - 1;
+            right = i + 1;
+            final String oddPalindromeCurrent = Character.toString(str.charAt(i));
+            collectPalindromesByMovingEitherSide(str, left, right, oddPalindromeCurrent, palindromes);
+        }
+
+        return palindromes;
+    }
+
+    private static void collectPalindromesByMovingEitherSide(final String str, int left, int right,
+                                                             String currentPalindrome, final HashSet<String> palindromes) {
+        while (left >= 0 && right < str.length()) {
+            StringBuffer newPalindrome = new StringBuffer();
+
+            if (str.charAt(left) == str.charAt(right)) {
+                newPalindrome.append(str.charAt(left))
+                        .append(currentPalindrome)
+                        .append(str.charAt(right));
+                currentPalindrome = newPalindrome.toString();
+                palindromes.add(currentPalindrome);
+            } else {
+                break;
+            }
+            left--;
+            right++;
+        }
     }
 }
