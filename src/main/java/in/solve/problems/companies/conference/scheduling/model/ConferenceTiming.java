@@ -1,7 +1,7 @@
 package in.solve.problems.companies.conference.scheduling.model;
 
-import com.sun.javafx.UnmodifiableArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ConferenceTiming {
@@ -13,9 +13,7 @@ public final class ConferenceTiming {
     }
 
     static ConferenceTiming withTracks(final List<ConferenceTrack> tracks) {
-        final int size = tracks.size();
-        return new ConferenceTiming(new UnmodifiableArrayList<>(
-                    tracks.toArray(new ConferenceTrack[size]), size));
+        return new ConferenceTiming(new ArrayList(tracks));
     }
 
     public List<ConferenceTrack> getTracks() {
