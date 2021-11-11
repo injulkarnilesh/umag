@@ -1,5 +1,6 @@
 package in.solve.problems.companies.chess;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PawnStrategy implements PieceStrategy {
@@ -14,10 +15,10 @@ public class PawnStrategy implements PieceStrategy {
   }
 
   public List<Move> possibleMoves(MovementFactory movementFactory) {
-    Move onePositionForward = Move.of(List.of(movementFactory.forwardMovement()));
-    Move diagonalKillLeftForward = Move.killOnlyMove(List.of(movementFactory.diagonalForwardLeftMovement()));
-    Move diagonalKillRightForward = Move.killOnlyMove(List.of(movementFactory.diagonalForwardRightMovement()));
-    return List.of(onePositionForward, diagonalKillLeftForward, diagonalKillRightForward);
+    Move onePositionForward = Move.of(Arrays.asList(movementFactory.forwardMovement()));
+    Move diagonalKillLeftForward = Move.killOnlyMove(Arrays.asList(movementFactory.diagonalForwardLeftMovement()));
+    Move diagonalKillRightForward = Move.killOnlyMove(Arrays.asList(movementFactory.diagonalForwardRightMovement()));
+    return Arrays.asList(onePositionForward, diagonalKillLeftForward, diagonalKillRightForward);
   }
 
 }

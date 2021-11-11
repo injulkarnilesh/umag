@@ -1,5 +1,6 @@
 package in.solve.problems.companies.chess;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class KingStrategy implements PieceStrategy {
@@ -14,17 +15,17 @@ public class KingStrategy implements PieceStrategy {
   }
 
   public List<Move> possibleMoves(MovementFactory movementFactory) {
-    Move onePositionForward = Move.of(List.of(movementFactory.forwardMovement()));
-    Move onePositionBackward = Move.of(List.of(movementFactory.backwardMovement()));
-    Move onePositionLeft = Move.of(List.of(movementFactory.leftMovement()));
-    Move onePositionRight = Move.of(List.of(movementFactory.rightMovement()));
+    Move onePositionForward = Move.of(Arrays.asList(movementFactory.forwardMovement()));
+    Move onePositionBackward = Move.of(Arrays.asList(movementFactory.backwardMovement()));
+    Move onePositionLeft = Move.of(Arrays.asList(movementFactory.leftMovement()));
+    Move onePositionRight = Move.of(Arrays.asList(movementFactory.rightMovement()));
 
-    Move diagonallyForwardRight = Move.of(List.of(movementFactory.diagonalForwardRightMovement()));
-    Move diagonallyForwardLeft = Move.of(List.of(movementFactory.diagonalForwardLeftMovement()));
-    Move diagonallyBackwardRight = Move.of(List.of(movementFactory.diagonalBackwardRightMovement()));
-    Move diagonallyBackwardLeft = Move.of(List.of(movementFactory.diagonalBackwardLeftMovement()));
+    Move diagonallyForwardRight = Move.of(Arrays.asList(movementFactory.diagonalForwardRightMovement()));
+    Move diagonallyForwardLeft = Move.of(Arrays.asList(movementFactory.diagonalForwardLeftMovement()));
+    Move diagonallyBackwardRight = Move.of(Arrays.asList(movementFactory.diagonalBackwardRightMovement()));
+    Move diagonallyBackwardLeft = Move.of(Arrays.asList(movementFactory.diagonalBackwardLeftMovement()));
 
-    return List.of(onePositionForward, onePositionBackward, onePositionLeft, onePositionRight,
+    return Arrays.asList(onePositionForward, onePositionBackward, onePositionLeft, onePositionRight,
         diagonallyForwardLeft, diagonallyForwardRight, diagonallyBackwardLeft, diagonallyBackwardRight);
   }
 
