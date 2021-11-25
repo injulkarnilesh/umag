@@ -1,4 +1,4 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
 public class Q6MatrixRotation {
 

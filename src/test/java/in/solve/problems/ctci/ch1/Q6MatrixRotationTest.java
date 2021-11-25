@@ -1,5 +1,6 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
+import in.solve.problems.ctci.ch1.Q6MatrixRotation;
 import org.junit.Test;
 
 import static java.util.Arrays.deepEquals;

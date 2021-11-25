@@ -1,9 +1,8 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static in.solve.problems.ctci.Q4AnagramCheck.areAnagram;
+import static in.solve.problems.ctci.ch1.Q4AnagramCheck.areAnagram;
 import static org.junit.Assert.*;
 
 public class Q4AnagramCheckTest {

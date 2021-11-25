@@ -1,8 +1,8 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
 import org.junit.Test;
 
-import static in.solve.problems.ctci.Q5StringSpaceReplacement.replaceSpaceInString;
+import static in.solve.problems.ctci.ch1.Q5StringSpaceReplacement.replaceSpaceInString;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 

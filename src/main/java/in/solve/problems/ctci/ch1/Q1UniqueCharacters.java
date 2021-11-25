@@ -1,4 +1,4 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
 import java.util.HashSet;
 import java.util.Set;

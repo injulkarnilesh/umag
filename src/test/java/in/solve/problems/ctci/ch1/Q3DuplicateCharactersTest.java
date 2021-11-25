@@ -1,10 +1,8 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 
-import static in.solve.problems.ctci.Q3DuplicateCharacters.removeDuplicateCharacters;
+import static in.solve.problems.ctci.ch1.Q3DuplicateCharacters.removeDuplicateCharacters;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.*;

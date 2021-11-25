@@ -1,6 +1,7 @@
-package in.solve.problems.ctci;
+package in.solve.problems.ctci.ch1;
 
 
+import in.solve.problems.ctci.ch1.Q1UniqueCharacters;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
