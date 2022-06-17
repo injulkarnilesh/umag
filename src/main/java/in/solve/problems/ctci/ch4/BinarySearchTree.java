@@ -1,5 +1,7 @@
 package in.solve.problems.ctci.ch4;
 
+import java.util.List;
+
 public class BinarySearchTree {
 
   private BinaryTreeNode<Integer> root = null;
@@ -10,7 +12,7 @@ public class BinarySearchTree {
 
   public void add(int ...items) {
     for (int item : items) {
-      root = add(root, item);
+      root = add(root, null, item);
     }
   }
 
@@ -69,19 +71,27 @@ public class BinarySearchTree {
   }
 
 
-  private BinaryTreeNode<Integer> add(BinaryTreeNode<Integer> node, int item) {
+  private BinaryTreeNode<Integer> add(BinaryTreeNode<Integer> node, BinaryTreeNode<Integer> parent, int item) {
     if (node == null) {
-      return BinaryTreeNode.of(item);
+      return newNodeToAdd(parent, item);
     }
     if (item < node.getValue()) {
-      node.setLeft(add(node.getLeft(), item));
-    } else {
-      node.setRight(add(node.getRight(), item));
+      node.setLeft(add(node.getLeft(), node, item));
+    } else if (item > node.getValue()){
+      node.setRight(add(node.getRight(), node, item));
     }
     return node;
   }
 
+  protected <N extends BinaryTreeNode> N newNodeToAdd(N parent, int item) {
+    return (N) new BinaryTreeNode(Integer.valueOf(item));
+  }
+
   public BinaryTreeNode<Integer> getRoot() {
     return root;
+  }
+
+  public void setRoot(BinaryTreeNode<Integer> root) {
+    this.root = root;
   }
 }

@@ -5,7 +5,7 @@ public class BinaryTreeNode<T> {
   private BinaryTreeNode<T> left;
   private BinaryTreeNode<T> right;
 
-  private BinaryTreeNode(T value) {
+  protected BinaryTreeNode(T value) {
     this(value, null, null);
   }
 
@@ -45,5 +45,12 @@ public class BinaryTreeNode<T> {
 
   public void setRight(BinaryTreeNode<T> right) {
     this.right = right;
+  }
+
+  @Override
+  public String toString() {
+    return "BinaryTreeNode{" +
+            "value=" + value +
+            '}';
   }
 }
