@@ -62,7 +62,7 @@ public class BinarySearchTreeTest {
 
     assertThat(root.getValue(), is(2));
     final List<Integer> ordered = TreeTraversal.inOrderTraverse(root);
-    assertThat(ordered, is(Lists.newArrayList(1, 1, 2, 2, 3, 3, 4, 5, 5)));
+    assertThat(ordered, is(Lists.newArrayList(1, 2, 3, 4, 5)));
   }
 
   @Test
