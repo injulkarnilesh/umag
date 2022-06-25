@@ -1,10 +1,10 @@
-package in.solve.problems.ctci.ch6;
+package in.solve.problems.ctci.ch7;
 
 import com.google.common.collect.Lists;
-import in.solve.problems.ctci.ch6.JigsawPuzzle.Orientation;
-import in.solve.problems.ctci.ch6.JigsawPuzzle.PieceBuilder;
-import in.solve.problems.ctci.ch6.JigsawPuzzle.PieceEdge;
-import in.solve.problems.ctci.ch6.JigsawPuzzle.Side;
+import in.solve.problems.ctci.ch7.JigsawPuzzle.Orientation;
+import in.solve.problems.ctci.ch7.JigsawPuzzle.PieceBuilder;
+import in.solve.problems.ctci.ch7.JigsawPuzzle.PieceEdge;
+import in.solve.problems.ctci.ch7.JigsawPuzzle.Side;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.containsString;

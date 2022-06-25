@@ -1,4 +1,4 @@
-package in.solve.problems.ctci.ch6;
+package in.solve.problems.ctci.ch7;
 
 
 import com.google.common.collect.Lists;
